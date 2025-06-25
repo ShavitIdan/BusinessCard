@@ -20,12 +20,12 @@ const commands = {
 
   cv: () =>
     showPopup(
-      '<iframe src="assets/cv.pdf" width="100%" height="100%"></iframe>'
+      '<iframe src="https://idan-businesscard-assets.s3.eu-west-1.amazonaws.com/IdanShavitCV.pdf" width="100%" height="100%"></iframe>'
     ),
 
   qr: () =>
     showPopup(
-      '<img src="assets/qr.png" alt="QR Code" style="max-width:100%; height:auto;" />'
+      '<img src="https://idan-businesscard-assets.s3.eu-west-1.amazonaws.com/qr-code.png" alt="QR Code" style="max-width:100%; height:auto;" />'
     ),
 
   image: () =>
