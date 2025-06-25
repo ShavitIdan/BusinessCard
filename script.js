@@ -19,10 +19,11 @@ const banner = `
 '---'   |   ,.'      '--''          ;   |.'                          |   ,/      '--''               '---" '---'                  
         '---'                       '---'                            '---'                                                        
                                                                                                                                   
-
+For help type 'help'
 `;
-
-printLine(banner);
+window.onload = () => {
+  output.innerHTML += banner;                       
+};
 
 const commands = {
   help: "Available commands: about, cv, qr, image, card, contact, clear, help",
@@ -72,11 +73,6 @@ const commands = {
 };
 
 let contactFlow = null;
-
-window.onload = () => {
-  printLine(banner);
-  printPrompt();
-};
 
 input.addEventListener("keydown", async function (e) {
   if (e.key === "Enter") {
