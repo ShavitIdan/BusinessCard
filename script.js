@@ -1,8 +1,31 @@
 const output = document.getElementById("output");
 const input = document.getElementById("cmd");
 const promptLabel = document.getElementById("prompt-label");
+const banner = `
+
+                                                                                                                           ,----, 
+                                             ,--.                            ,--,                                        ,/   .'| 
+   ,---,    ,---,       ,---,              ,--.'|          .--.--.         ,--.'|   ,---,                     ,---,    ,'   .'  : 
+,'--.' |  .'  .' '\    '  .' \         ,--,:  : |         /  /    '.    ,--,  | :  '  .' \            ,---.,'--.' |  ;    ;     / 
+|   :  :,---.'     \  /  ;    '.    ,'--.''|  ' :        |  :  /'. / ,---.'|  : ' /  ;    '.         /__./||   :  :.'___,/    ,'  
+:   |  '|   |  .'\  |:  :       \   |   :  :  | |        ;  |  |--'  |   | : _' |:  :       \   ,---.;  ; |:   |  '|    :     |   
+|   :  |:   : |  '  |:  |   /\   \  :   |   \ | :        |  :  ;_    :   : |.'  |:  |   /\   \ /___/ \  | ||   :  |;    |.';  ;   
+'   '  ;|   ' '  ;  :|  :  ' ;.   : |   : '  '; |         \  \    '. |   ' '  ; :|  :  ' ;.   :\   ;  \ ' |'   '  ;'----'  |  |   
+|   |  |'   | ;  .  ||  |  ;/  \   \'   ' ;.    ;          '----.   \'   |  .'. ||  |  ;/  \   \\   \  \: ||   |  |    '   :  ;   
+'   :  ;|   | :  |  ''  :  | \  \ ,'|   | | \   |          __ \  \  ||   | :  | ''  :  | \  \ ,' ;   \  ' .'   :  ;    |   |  '   
+|   |  ''   : | /  ; |  |  '  '--'  '   : |  ; .'         /  /'--'  /'   : |  : ;|  |  '  '--'    \   \   '|   |  '    '   :  |   
+'   :  ||   | '' ,/  |  :  :        |   | ''--'          '--'.     / |   | '  ,/ |  :  :           \   '  ;'   :  |    ;   |.'    
+;   |.' ;   :  .'    |  | ,'        '   : |                '--'---'  ;   : ;--'  |  | ,'            :   \ |;   |.'     '---'      
+'---'   |   ,.'      '--''          ;   |.'                          |   ,/      '--''               '---" '---'                  
+        '---'                       '---'                            '---'                                                        
+                                                                                                                                  
+
+`;
+
+printLine(banner);
+
 const commands = {
-  help: "Available commands: about, cv, qr, image, card, contact, contactme, clear, help",
+  help: "Available commands: about, cv, qr, image, card, contact, clear, help",
 
   about:
     "Hi, I'm Idan Shavit — a software engineering student with a passion for backend, cloud, and game dev.",
@@ -12,8 +35,8 @@ const commands = {
 +================================================+
 | Name      : Idan Shavit                        |
 | Title     : Software Engineering Student       |
-| Email     : idan@example.com                   |
-| Phone     : +972-50-1234567                    |
+| Email     : idanshavit5@gmail.com              |
+| Phone     : +972-54-4660991                    |
 | LinkedIn  : linkedin.com/in/idanshavit         |
 +================================================+
   `.trim(),
@@ -33,7 +56,7 @@ const commands = {
       '<img src="assets/profile.jpg" alt="Profile Photo" style="max-width:100%; height:auto;" />'
     ),
 
-  contactme: () => {
+  contact: () => {
     contactFlow = {
       step: 0,
       questions: ["Name:", "Email:", "Message:", "Send now? (yes/no):"],
@@ -49,6 +72,11 @@ const commands = {
 };
 
 let contactFlow = null;
+
+window.onload = () => {
+  printLine(banner);
+  printPrompt();
+};
 
 input.addEventListener("keydown", async function (e) {
   if (e.key === "Enter") {
