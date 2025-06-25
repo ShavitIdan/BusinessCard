@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Idan's Hacker Console</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="terminal">
+      <div id="output"></div>
+      <div id="input-line">
+        <span class="prompt" id="prompt-label">C:\Users\Idan&gt; </span>
+        <input type="text" id="cmd" autofocus />
+      </div>
+    </div>
+    <div id="popup" class="hidden">
+      <div class="popup-content">
+        <span class="close" onclick="hidePopup()">[X]</span>
+        <div id="popup-body"></div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
