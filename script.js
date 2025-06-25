@@ -70,7 +70,7 @@ input.addEventListener("keydown", async function (e) {
 
           try {
             const res = await fetch(
-              "https://your-api-id.execute-api.region.amazonaws.com/contact",
+              "https://h8tljq5w07.execute-api.eu-west-1.amazonaws.com/default/BussinesCard",
               {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
