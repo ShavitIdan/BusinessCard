@@ -23,7 +23,7 @@ For help type 'help'
 </pre>
 `;
 window.onload = () => {
-  output.innerHTML += banner;                       
+  output.innerHTML += banner;
 };
 
 const commands = {
@@ -44,9 +44,10 @@ const commands = {
   `.trim(),
 
   cv: () =>
-    showPopup(
-      '<iframe src="https://idan-businesscard-assets.s3.eu-west-1.amazonaws.com/IdanShavitCV.pdf" width="100%" height="100%"></iframe>'
-    ),
+    showPopup(`
+    <iframe src="https://idan-businesscard-assets.s3.eu-west-1.amazonaws.com/IdanShavitCV.pdf"
+      style="width: 95vw; height: 90vh; border: none;"></iframe>
+  `),
 
   qr: () =>
     showPopup(
@@ -55,7 +56,7 @@ const commands = {
 
   image: () =>
     showPopup(
-      '<img src="assets/profile.jpg" alt="Profile Photo" style="max-width:100%; height:auto;" />'
+      '<img src="https://idan-businesscard-assets.s3.eu-west-1.amazonaws.com/IdanProfPicture.png" alt="Profile Photo" style="max-width:100%; height:auto;" />'
     ),
 
   contact: () => {
@@ -64,7 +65,7 @@ const commands = {
       questions: ["Name:", "Email:", "Message:", "Send now? (yes/no):"],
       answers: [],
     };
-    promptLabel.textContent = "> "; 
+    promptLabel.textContent = "> ";
     output.innerHTML +=
       "Starting contact sequence...\n" + contactFlow.questions[0] + "\n";
   },
@@ -119,12 +120,12 @@ input.addEventListener("keydown", async function (e) {
 
           contactFlow = null;
           promptLabel.textContent = "C:\\Users\\Idan> ";
-          return; 
+          return;
         } else if (confirm === "no") {
           output.innerHTML += "X Contact cancelled.\n";
           contactFlow = null;
           promptLabel.textContent = "C:\\Users\\Idan> ";
-          return; 
+          return;
         }
 
         output.innerHTML += "Sending message...\n";
@@ -184,14 +185,52 @@ input.addEventListener("keydown", async function (e) {
   }
 });
 
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") hidePopup();
+});
+
 function showPopup(contentHTML) {
   const popup = document.getElementById("popup");
   const body = document.getElementById("popup-body");
+
+  if (!popup || !body) {
+    console.error("Popup elements not found");
+    return;
+  }
+
   body.innerHTML = contentHTML;
   popup.classList.remove("hidden");
+  popup.style.display = "block";
+
+  const close = document.getElementById("popup-close");
+  if (close) close.onclick = hidePopup;
 }
 
 function hidePopup() {
   const popup = document.getElementById("popup");
   popup.classList.add("hidden");
+  popup.style.display = "none";
 }
+
+let isDragging = false;
+let offset = { x: 0, y: 0 };
+
+const popup = document.getElementById("popup");
+
+popup.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  offset.x = e.clientX - popup.getBoundingClientRect().left;
+  offset.y = e.clientY - popup.getBoundingClientRect().top;
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (isDragging) {
+    popup.style.left = `${e.clientX - offset.x}px`;
+    popup.style.top = `${e.clientY - offset.y}px`;
+    popup.style.transform = `none`; // cancel center transform while dragging
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+});
